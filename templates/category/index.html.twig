@@ -1,0 +1,31 @@
+{# templates/category/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <h1>Categories</h1>
+    <a href="{{ path('category_new') }}">Create new Category</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td>{{ category.description }}</td>
+            <td>
+                <a href="{{ path('category_edit', {'id': category.id}) }}">Edit</a>
+                <form action="{{ path('category_delete', {'id': category.id}) }}" method="post" style="display:inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
