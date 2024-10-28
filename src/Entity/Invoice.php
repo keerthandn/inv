@@ -3,47 +3,56 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: InvoiceRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\InvoiceRepository")
+ */
 class Invoice
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    #[ORM\ManyToOne(targetEntity: Customer::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Customer $customer = null;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
 
-    #[ORM\Column(type: 'json')]
-    private array $items = [];
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Customer")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $customer;
 
-    #[ORM\Column]
-    private float $subtotal = 0.0;
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $products = [];
 
-    #[ORM\Column]
-    private float $discount = 0.0;
+    /**
+     * @ORM\Column(type="decimal", scale=2)
+     */
+    private $total;
 
-    #[ORM\Column]
-    private float $tax = 0.0;
-
-    #[ORM\Column]
-    private float $total = 0.0;
-
-    #[ORM\Column(length: 20)]
-    private string $paymentMethod;
-
-    #[ORM\Column]
-    private \DateTimeImmutable $createdAt;
-
-    public function __construct()
-    {
-        $this->createdAt = new \DateTimeImmutable();
-    }
+    // Getters and Setters
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
     }
 
     public function getCustomer(): ?Customer
@@ -54,54 +63,23 @@ class Invoice
     public function setCustomer(?Customer $customer): self
     {
         $this->customer = $customer;
+
         return $this;
     }
 
-    public function getItems(): array
+    public function getProducts(): array
     {
-        return $this->items;
+        return $this->products;
     }
 
-    public function setItems(array $items): self
+    public function setProducts(array $products): self
     {
-        $this->items = $items;
+        $this->products = $products;
+
         return $this;
     }
 
-    public function getSubtotal(): float
-    {
-        return $this->subtotal;
-    }
-
-    public function setSubtotal(float $subtotal): self
-    {
-        $this->subtotal = $subtotal;
-        return $this;
-    }
-
-    public function getDiscount(): float
-    {
-        return $this->discount;
-    }
-
-    public function setDiscount(float $discount): self
-    {
-        $this->discount = $discount;
-        return $this;
-    }
-
-    public function getTax(): float
-    {
-        return $this->tax;
-    }
-
-    public function setTax(float $tax): self
-    {
-        $this->tax = $tax;
-        return $this;
-    }
-
-    public function getTotal(): float
+    public function getTotal(): ?float
     {
         return $this->total;
     }
@@ -109,22 +87,7 @@ class Invoice
     public function setTotal(float $total): self
     {
         $this->total = $total;
+
         return $this;
-    }
-
-    public function getPaymentMethod(): string
-    {
-        return $this->paymentMethod;
-    }
-
-    public function setPaymentMethod(string $paymentMethod): self
-    {
-        $this->paymentMethod = $paymentMethod;
-        return $this;
-    }
-
-    public function getCreatedAt(): \DateTimeImmutable
-    {
-        return $this->createdAt;
     }
 }

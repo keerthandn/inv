@@ -1,0 +1,16 @@
+{# templates/invoice/new.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Invoice{% endblock %}
+
+{% block body %}
+    <h1>Create New Invoice</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Create Invoice</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('invoice_list') }}">Back to list</a>
+{% endblock %}

@@ -1,33 +1,42 @@
 <?php
+// src/Entity/Customer.php
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: CustomerRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
+ */
 class Customer
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
-    private ?string $name = null;
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $name;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
-    #[Assert\Email]
-    private ?string $email = null;
+    /**
+     * @ORM\Column(type="string", length=100, unique=true)
+     */
+    private $email;
 
-    #[ORM\Column(type: 'text')]
-    #[Assert\NotBlank]
-    private ?string $address = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
 
-    #[ORM\Column(length: 20)]
-    #[Assert\NotBlank]
-    private ?string $contactNumber = null;
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $contactNumber;
+
+    // Getters and Setters
 
     public function getId(): ?int
     {
@@ -42,6 +51,7 @@ class Customer
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -53,6 +63,7 @@ class Customer
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -64,6 +75,7 @@ class Customer
     public function setAddress(string $address): self
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -75,6 +87,7 @@ class Customer
     public function setContactNumber(string $contactNumber): self
     {
         $this->contactNumber = $contactNumber;
+
         return $this;
     }
 }

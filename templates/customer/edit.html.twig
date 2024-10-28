@@ -1,0 +1,16 @@
+{# templates/customer/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Customer{% endblock %}
+
+{% block body %}
+    <h1>Edit Customer</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Update</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('customer_list') }}">Back to list</a>
+{% endblock %}

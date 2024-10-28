@@ -1,0 +1,38 @@
+{# templates/invoice/list.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Invoice List{% endblock %}
+
+{% block body %}
+    <h1>Invoice List</h1>
+
+    <a href="{{ path('invoice_new') }}">Create New Invoice</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Total Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.date|date('Y-m-d H:i') }}</td>
+                    <td>{{ invoice.customer.name }}</td>
+                    <td>{{ invoice.total|number_format(2) }}</td>
+                    <td>
+                        <a href="{{ path('invoice_edit', { id: invoice.id }) }}">Edit</a>
+                        <form method="post" action="{{ path('invoice_delete', { id: invoice.id }) }}" style="display: inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ invoice.id) }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
