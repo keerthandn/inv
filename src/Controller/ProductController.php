@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductController extends AbstractController
 {
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -41,16 +41,14 @@ class ProductController extends AbstractController
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
-        // dd($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($form->getData());
             $this->entityManager->persist($product);
             $this->entityManager->flush();
 
             return $this->redirectToRoute('product_index');
         }
-// dd($product);
+
         return $this->render('product/new.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
@@ -92,7 +90,7 @@ class ProductController extends AbstractController
      */
     public function delete(Request $request, Product $product): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $this->entityManager->remove($product);
             $this->entityManager->flush();
         }

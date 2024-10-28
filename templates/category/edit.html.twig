@@ -1,0 +1,26 @@
+{# templates/category/edit.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Category{% endblock %}
+
+{% block body %}
+    <h1>Edit Category</h1>
+
+    {{ form_start(form) }}
+        <div>
+            <label for="{{ form.name.vars.id }}">Name</label>
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+
+        <div>
+            <label for="{{ form.description.vars.id }}">Description</label>
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <button type="submit">Save changes</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('category_index') }}">Back to the list</a>
+{% endblock %}

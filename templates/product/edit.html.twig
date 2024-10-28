@@ -1,0 +1,44 @@
+{# templates/product/edit.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block body %}
+    <h1>Edit Product</h1>
+
+    {{ form_start(form) }}
+        <div>
+            <label for="{{ form.name.vars.id }}">Name</label>
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+        
+        <div>
+            <label for="{{ form.description.vars.id }}">Description</label>
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div>
+            <label for="{{ form.price.vars.id }}">Price</label>
+            {{ form_widget(form.price) }}
+            {{ form_errors(form.price) }}
+        </div>
+
+        <div>
+            <label for="{{ form.quantity.vars.id }}">Quantity</label>
+            {{ form_widget(form.quantity) }}
+            {{ form_errors(form.quantity) }}
+        </div>
+
+        <div>
+            <label for="{{ form.category.vars.id }}">Category</label>
+            {{ form_widget(form.category) }}
+            {{ form_errors(form.category) }}
+        </div>
+
+        <button type="submit">Save changes</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('product_index') }}">Back to the list</a>
+{% endblock %}
